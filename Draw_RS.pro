@@ -9,11 +9,19 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    calculateposition.cpp \
+    knotpos.cpp \
     main.cpp \
-    mainwindow.cpp
+    renderarea.cpp \
+    showknot.cpp \
+    tree.cpp
 
 HEADERS += \
-    mainwindow.h
+    calculateposition.h \
+    knotpos.h \
+    renderarea.h \
+    showknot.h \
+    tree.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
