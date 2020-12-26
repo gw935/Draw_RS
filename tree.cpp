@@ -8,7 +8,6 @@
 #include "tree.h"
 using namespace std;
 
-//hallo
 // Erzeuge einen neuen Knoten
 struct TreeNode* tree::NewTreeNode(int key, string info) {
     struct TreeNode* node = new TreeNode();
