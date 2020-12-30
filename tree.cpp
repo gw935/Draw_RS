@@ -11,11 +11,11 @@ using namespace std;
 // Erzeuge einen neuen Knoten
 struct TreeNode* Tree::NewTreeNode(int key, string info, string color) {
     struct TreeNode* node = new TreeNode();
-    node->up = NULL;
+    node->up = nil;
     node->key = key;
     node->info = info;
-    node->left = NULL;
-    node->right = NULL;
+    node->left = nil;
+    node->right = nil;
     node->color = color;
     return(node);
 }
@@ -25,6 +25,8 @@ Tree::Tree() {
     nil->color = "BLACK";
     nil->left = nullptr;
     nil->right = nullptr;
+    nil->key=0;
+    nil->info = "";
     root = nil;
 }
 
@@ -94,14 +96,13 @@ struct TreeNode* Tree::TreeInsert(struct TreeNode* tree, int key, string info) {
         // ...groesser...
         if(tree->key > key) {
             // Schaue unten links...
-            if(tree->left == nullptr) {
+            if(tree->left == nil) {
                 // Lege Knoten an, falls noch kein Knoten existiert
                 tree->left = Tree::NewTreeNode(key, info, "RED");
-                cout << "DEBUG TEST1" << endl;
-                TreeInsertFixRB(tree->left);
-                cout << "DEBUG TEST2" << endl;
                 tree->left->up = tree;
-                if(tree->up != nullptr) {
+                TreeInsertFixRB(tree->left);
+
+                if(tree->up != nil) {
                     //cout << "DEBUG (Insert): Lege Knoten " << key << " links unter Knoten " << tree->up->key << " an." << endl;
                 }
                 else {
@@ -115,12 +116,13 @@ struct TreeNode* Tree::TreeInsert(struct TreeNode* tree, int key, string info) {
         // ...kleiner...
         else if(tree->key < key) {
             // Schaue unten rechts...
-            if(tree->right == nullptr) {
+            if(tree->right == nil) {
                 // Lege Knoten an, falls noch kein Knoten existiert
                 tree->right = Tree::NewTreeNode(key, info, "RED");
-                TreeInsertFixRB(tree->right);
                 tree->right->up = tree;
-                if(tree->up != nullptr) {
+                TreeInsertFixRB(tree->right);
+
+                if(tree->up != nil) {
                     //cout << "DEBUG (Insert): Lege Knoten " << key << " rechts unter Knoten " << tree->up->key << " an." << endl;
                 }
                 else {
@@ -143,44 +145,46 @@ struct TreeNode* Tree::TreeInsert(struct TreeNode* tree, int key, string info) {
 
 void Tree::TreeInsertFixRB(struct TreeNode* node){
     struct TreeNode* y = nullptr;
-
     while(node->up->color == "RED"){
-        if(node->up->color == node->up->up->right->color){
-            y->color = node->up->up->left->color;
-            if(y->color == "RED"){                          //Fall 1
+        if(node->up == node->up->up->right){
+            y = node->up->up->left;
+            if(y->color == "RED"){
                 node->up->color = "BLACK";
                 y->color = "BLACK";
                 node->up->up->color = "RED";
-                node->color = node->up->up->color;
             }
             else{
-                if(node->color == node->up->left->color)          //Fall 2
+                if(node == node->up->left)          //Fall 2
                 {
-                    node->color = node->up->color;
-                    TreeRightRotate(node);
+                    TreeRightRotate(node->up);
+                    TreeLeftRotate(node->up->up);
+
                 }
-                node->up->color = "BLACK";          //Fall 3
-                node->up->up->color = "RED";
-                TreeLeftRotate(node->up->up);
+                else{
+                    node->up->color = "BLACK";          //Fall 3
+                    node->up->up->color = "RED";
+                    TreeLeftRotate(node->up->up);
+                }
             }
         }
         else{
-            y->color = node->up->up->right->color;
-            if(y->color == "RED")
-            {
+            y = node->up->up->right;
+            if(y->color == "RED"){
                 node->up->color = "BLACK";
                 y->color = "BLACK";
                 node->up->up->color = "RED";
-                node->color = node->up->up->color;
             }
             else{
-                if(node->color == node->up->right->color){
-                    node->color = node->up->color;
-                    TreeLeftRotate(node);
+                if(node == node->up->right)
+                {
+                    TreeLeftRotate(node->up);
+                    TreeRightRotate(node->up->up);
                 }
-                node->up->color = "BLACK";
-                node->up->up->color = "RED";
-                TreeRightRotate(node->up->up);
+                else{
+                    node->up->color = "BLACK";
+                    node->up->up->color = "RED";
+                    TreeRightRotate(node->up->up);
+                }
             }
         }
     }
@@ -205,34 +209,39 @@ struct TreeNode* Tree::TreeSearch(struct TreeNode* tree, int key){
 void Tree::TreeRightRotate(struct TreeNode* rotateThisNode) {
     struct TreeNode* x = rotateThisNode;
     struct TreeNode* y = x->left;
-    x->left = y->right;
-    if (y->right != nil)
-        y->right->up = x;
-    y->up = x->up;
-    if (x->up == nil)
-        this->root = y;
-    else if (x == x->up->right)
-        x->up->right = y;
-    else
-        x->up->left = y;
-    y->right = x;
-    x->up = y;
+    if(x->left != nil){
+        x->left = y->right;
+        if (y->right != nil)
+            y->right->up = x;
+        y->up = x->up;
+        if (x->up == nil)
+            this->root = y;
+        else if (x == x->up->right)
+            x->up->right = y;
+        else
+            x->up->left = y;
+        y->right = x;
+        x->up = y;
+    }
 }
 
 void Tree::TreeLeftRotate(struct TreeNode* rotateThisNode) {
     struct TreeNode* x = rotateThisNode;
     struct TreeNode* y = x->right;
-    x->right = y->left;
-    if (y->left != nil)
-        y->left->up = x;
-    y->up = x->up;
+    if(x->right != nil){
+        x->right = y->left;
+        if (y->left != nil)
+            y->left->up = x;
 
-    if (x->up == nil)
-        this->root = y;
-    else if (x == x->up->left)
-        x->up->left = y;
-    else
-        x->up->right = y;
-    y->left = x;
-    x->up = y;
+        y->up = x->up;
+
+        if (x->up == nil)
+            this->root = y;
+        else if (x == x->up->left)
+            x->up->left = y;
+        else
+            x->up->right = y;
+        y->left = x;
+        x->up = y;
+    }
 }
