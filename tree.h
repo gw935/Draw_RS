@@ -9,22 +9,31 @@ struct TreeNode {
     struct TreeNode* up;
     int key;
     string info;
+    string color;
     struct TreeNode* left;
     struct TreeNode* right;
 };
 
-class tree {
+class Tree {
+private:
+    struct TreeNode* root = NULL;
+    struct TreeNode* nil = NULL;
 public:
-    static struct TreeNode* NewTreeNode(int key, string info);
-    static struct TreeNode* TreeExample1();
-    static void TreePrint(struct TreeNode* tree);
-    static void TreePrint(struct TreeNode* tree, int indentation);
-    static struct TreeNode* TreeInsert(struct TreeNode* tree, int key, string info);
-    static struct TreeNode* TreeSearch(struct TreeNode* tree, int key);
-    static void TreeUpdate(struct TreeNode* tree, int key, string info);
-    static struct TreeNode* TreeGenerateRandomTree(int n, int seed);
-    static struct TreeNode* TreeExampleSequenceN(int n);
-    static struct TreeNode* TreeExampleFullLevelN(int n);
+    Tree();
+    struct TreeNode* NewTreeNode(int key, string info, string color);
+    struct TreeNode* TreeExample1();
+    void TreePrint(struct TreeNode* tree);
+    void TreePrint(struct TreeNode* tree, int indentation);
+    struct TreeNode* TreeInsert(struct TreeNode* tree, int key, string info);
+    struct TreeNode* TreeSearch(struct TreeNode* tree, int key);
+    void TreeUpdate(struct TreeNode* tree, int key, string info);
+    struct TreeNode* TreeGenerateRandomTree(int n, int seed);
+    struct TreeNode* TreeExampleSequenceN(int n);
+    struct TreeNode* TreeExampleFullLevelN(int n);
+    // RS Funktionen
+    void TreeRightRotate(struct TreeNode* rotateThisNode);
+    void TreeLeftRotate(struct TreeNode* rotateThisNode);
+    void TreeInsertFixRB(struct TreeNode* node);
 };
 
 

@@ -44,9 +44,11 @@ int main(int argc, char *argv[])
         return -1;
     }
 
+    Tree tree1;
+
     for (int i = 0; i < x; i++) {
         int random = (rand() % (rMa + 1)) + rMi;
-        tree = tree::TreeInsert(tree, random, "Info zu Schluessel " + std::to_string(random));
+        tree = tree1.TreeInsert(tree, random, "Info zu Schluessel " + std::to_string(random));
     }
 
     ShowKnot::display(tree);
