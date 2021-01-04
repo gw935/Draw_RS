@@ -25,7 +25,7 @@ Tree::Tree() {
     nil->color = "BLACK";
     nil->left = nullptr;
     nil->right = nullptr;
-    nil->key=0;
+    nil->key = 0;
     nil->info = "";
     root = nil;
 }
@@ -138,13 +138,13 @@ struct TreeNode* Tree::TreeInsert(struct TreeNode* tree, int key, string info) {
             //cout << "DEBUG (Insert): Knoten " << key << " existiert bereits." << endl;
         }
     }
-
     return tree; // Wurzel des Baums ausgeben
 }
 
 
 void Tree::TreeInsertFixRB(struct TreeNode* node){
     struct TreeNode* y = nullptr;
+    struct TreeNode* x = nullptr;
     while(node->up->color == "RED"){
         if(node->up == node->up->up->right){
             y = node->up->up->left;
@@ -154,17 +154,14 @@ void Tree::TreeInsertFixRB(struct TreeNode* node){
                 node->up->up->color = "RED";
             }
             else{
+                node->up->up->color="RED";
+                node->up->color="BLACK";
+                x=node->up->up;
                 if(node == node->up->left)          //Fall 2
                 {
                     TreeRightRotate(node->up);
-                    TreeLeftRotate(node->up->up);
-
                 }
-                else{
-                    node->up->color = "BLACK";          //Fall 3
-                    node->up->up->color = "RED";
-                    TreeLeftRotate(node->up->up);
-                }
+                TreeLeftRotate(x);
             }
         }
         else{
@@ -175,19 +172,18 @@ void Tree::TreeInsertFixRB(struct TreeNode* node){
                 node->up->up->color = "RED";
             }
             else{
+                node->up->up->color="RED";
+                node->up->color="BLACK";
+                x=node->up->up;
                 if(node == node->up->right)
                 {
                     TreeLeftRotate(node->up);
-                    TreeRightRotate(node->up->up);
                 }
-                else{
-                    node->up->color = "BLACK";
-                    node->up->up->color = "RED";
-                    TreeRightRotate(node->up->up);
-                }
+                TreeRightRotate(x);
             }
         }
     }
+    root->color = "BLACK";
 }
 
 
