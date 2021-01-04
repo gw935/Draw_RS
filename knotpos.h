@@ -2,6 +2,7 @@
 #define KNOTPOS_H
 
 #include <QColor>
+#include <string>
 
 /**
  * @brief Klasse zum Speichern der Werte eines Knotens.

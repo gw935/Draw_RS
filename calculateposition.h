@@ -5,6 +5,7 @@
 #include "knotpos.h"
 #include "renderarea.h"
 #include "showknot.h"
+#include <string>
 
 /**
  * @brief Klasse zum Berechnen der Positionen.
