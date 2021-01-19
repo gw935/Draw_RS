@@ -33,7 +33,7 @@ public:
     // RS Funktionen
     void TreeRightRotate(struct TreeNode* rotateThisNode);
     void TreeLeftRotate(struct TreeNode* rotateThisNode);
-    void TreeInsertFixRB(struct TreeNode* node);
+    void TreeInsertFixRB(struct TreeNode* z);
 };
 
 

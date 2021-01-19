@@ -141,51 +141,111 @@ struct TreeNode* Tree::TreeInsert(struct TreeNode* tree, int key, string info) {
     return tree; // Wurzel des Baums ausgeben
 }
 
+/*void Tree::TreeInsertFixRB(struct TreeNode* z) {
+            while(z->up->color == "RED") {
+                auto grandparent = z->up->up;
+                auto uncle = root;
+                if(z->up == grandparent->left) {
+                    if(grandparent->right) { uncle = grandparent->right; }
+                    if(uncle->color == "RED"){
+                        z->up->color = "BLACK";
+                        uncle->color = "BLACK";
+                        grandparent->color = "RED";
+                        if(grandparent->info != root->info){ z = grandparent; }
+                        else { break; }
+                    }
+                    else if(z == grandparent->left->right) {
+                        TreeLeftRotate(z->up);
+                    }
+                    else {
+                        z->up->color = "BLACK";
+                        grandparent->color = "RED";
+                        TreeRightRotate(grandparent);
+                        if(grandparent->info != root->info){ z = grandparent; }
+                        else { break; }
+                    }
+                }
+                else {
+                    if(grandparent->left) { uncle = grandparent->left; }
+                    if(uncle->color == "RED"){
+                        z->up->color = "BLACK";
+                        uncle->color = "BLACK";
+                        grandparent->color = "RED";
+                        if(grandparent->info != root->info){ z = grandparent; }
+                        else { break; }
+                    }
+                    else if(z == grandparent->right->left){
+                        TreeRightRotate(z->up);
+                    }
+                    else {
+                        z->up->color = "BLACK";
+                        grandparent->color = "RED";
+                        TreeLeftRotate(grandparent);
+                        if(grandparent->info != root->info){ z = grandparent; }
+                        else { break; }
+                    }
+                }
+            }
+            root->color = "BLACK";
+        }*/
 
-void Tree::TreeInsertFixRB(struct TreeNode* node){
-    struct TreeNode* y = nullptr;
-    struct TreeNode* x = nullptr;
-    while(node->up->color == "RED"){
-        if(node->up == node->up->up->right){
-            y = node->up->up->left;
-            if(y->color == "RED"){
-                node->up->color = "BLACK";
-                y->color = "BLACK";
-                node->up->up->color = "RED";
-            }
-            else{
-                node->up->up->color="RED";
-                node->up->color="BLACK";
-                x=node->up->up;
-                if(node == node->up->left)          //Fall 2
-                {
-                    TreeRightRotate(node->up);
+void Tree::TreeInsertFixRB(struct TreeNode* z) {
+    while(z->up->color == "RED"){
+
+            /* z's parent is left child of z's grand parent*/
+            if(z->up == z->up->up->left){
+
+                /* z's grand parent's right child is RED */
+                if(z->up->up->right->color == "RED"){
+                    z->up->color = "BLACK";
+                    z->up->up->right->color = "BLACK";
+                    z->up->up->color = "RED";
+                    z = z->up->up;
                 }
-                TreeLeftRotate(x);
+
+                /* z's grand parent's right child is not RED */
+                else{
+
+                    /* z is z's parent's right child */
+                    if(z == z->up->right){
+                        z = z->up;
+                        TreeLeftRotate(z);
+                    }
+
+                    z->up->color = "BLACK";
+                    z->up->up->color = "RED";
+                    TreeRightRotate(z->up->up);
+                }
+            }
+
+            /* z's parent is z's grand parent's right child */
+            else{
+
+                /* z's left uncle or z's grand parent's left child is also RED */
+                if(z->up->up->left->color == "RED"){
+                    z->up->color = "BLACK";
+                    z->up->up->left->color = "BLACK";
+                    z->up->up->color = "RED";
+                    z = z->up->up;
+                }
+
+                /* z's left uncle is not RED */
+                else{
+                    /* z is z's parents left child */
+                    if(z == z->up->left){
+                        z = z->up;
+                        TreeRightRotate(z);
+                    }
+
+                    z->up->color = "BLACK";
+                    z->up->up->color = "RED";
+                    TreeLeftRotate(z->up->up);
+                }
             }
         }
-        else{
-            y = node->up->up->right;
-            if(y->color == "RED"){
-                node->up->color = "BLACK";
-                y->color = "BLACK";
-                node->up->up->color = "RED";
-            }
-            else{
-                node->up->up->color="RED";
-                node->up->color="BLACK";
-                x=node->up->up;
-                if(node == node->up->right)
-                {
-                    TreeLeftRotate(node->up);
-                }
-                TreeRightRotate(x);
-            }
-        }
-    }
-    root->color = "BLACK";
+
+        root->color = "BLACK";
 }
-
 
 
 // Gib Zeiger auf den Knoten im binaeren Suchbaum tree zurueck, der den Schluessel key speichert
