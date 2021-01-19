@@ -141,53 +141,6 @@ struct TreeNode* Tree::TreeInsert(struct TreeNode* tree, int key, string info) {
     return tree; // Wurzel des Baums ausgeben
 }
 
-/*void Tree::TreeInsertFixRB(struct TreeNode* z) {
-            while(z->up->color == "RED") {
-                auto grandparent = z->up->up;
-                auto uncle = root;
-                if(z->up == grandparent->left) {
-                    if(grandparent->right) { uncle = grandparent->right; }
-                    if(uncle->color == "RED"){
-                        z->up->color = "BLACK";
-                        uncle->color = "BLACK";
-                        grandparent->color = "RED";
-                        if(grandparent->info != root->info){ z = grandparent; }
-                        else { break; }
-                    }
-                    else if(z == grandparent->left->right) {
-                        TreeLeftRotate(z->up);
-                    }
-                    else {
-                        z->up->color = "BLACK";
-                        grandparent->color = "RED";
-                        TreeRightRotate(grandparent);
-                        if(grandparent->info != root->info){ z = grandparent; }
-                        else { break; }
-                    }
-                }
-                else {
-                    if(grandparent->left) { uncle = grandparent->left; }
-                    if(uncle->color == "RED"){
-                        z->up->color = "BLACK";
-                        uncle->color = "BLACK";
-                        grandparent->color = "RED";
-                        if(grandparent->info != root->info){ z = grandparent; }
-                        else { break; }
-                    }
-                    else if(z == grandparent->right->left){
-                        TreeRightRotate(z->up);
-                    }
-                    else {
-                        z->up->color = "BLACK";
-                        grandparent->color = "RED";
-                        TreeLeftRotate(grandparent);
-                        if(grandparent->info != root->info){ z = grandparent; }
-                        else { break; }
-                    }
-                }
-            }
-            root->color = "BLACK";
-        }*/
 
 void Tree::TreeInsertFixRB(struct TreeNode* z) {
     while(z->up->color == "RED"){
