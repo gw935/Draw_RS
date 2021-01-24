@@ -28,7 +28,7 @@ private:
     void brushChanged();
 
     static const int deltaX = 100;              //deltaX zur Weitergabe an Graphics und Berechnung
-    static const int deltaY = 150;              //deltaY zur Weitergabe an Graphics und Berechnung
+    static const int deltaY = 300;              //deltaY zur Weitergabe an Graphics und Berechnung
 
     RenderArea *scene;                          //Grafische Darstellung des Baumes
 
