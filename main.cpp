@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 
     int x = 10;         //anzahl
     int rMi = 0;        //rand min
-    int rMa = 100;      //rand max
+    int rMa = 10000;      //rand max
 
     if(argc > 0){
         x = atoi(argv[1]); if (x == 0) x = 10;
