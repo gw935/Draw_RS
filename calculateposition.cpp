@@ -61,7 +61,7 @@ knotpos* calculateposition::positionen_eintragen(struct TreeNode* tree,int delta
 knotpos* calculateposition::positionen_berechnen(struct TreeNode* tree, int *konstanten, int atm, int tiefe, RenderArea* renderArea){
 
     knotpos *PosRight = nullptr, *PosLeft = nullptr;
-    //if(tree->key != 0){
+    if(tree->key != 0){
     //an die linkeste Position
     //falls es kein links mehr gibt bleibt Pos links nullptr
     TreeNode* halter = tree->left;
@@ -91,8 +91,8 @@ knotpos* calculateposition::positionen_berechnen(struct TreeNode* tree, int *kon
     renderArea->addKnot(me);
 
     return me;                  //ich gebe meinem Vater meine position
-    //}
-    //return nullptr;
+    }
+    return nullptr;
 }
 
 

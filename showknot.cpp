@@ -27,7 +27,7 @@ ShowKnot::ShowKnot(struct TreeNode* tree)
     knotpos *test0 = nullptr;
     test0 = calculateposition::positionen_eintragen(tree, deltaX, deltaY, scene);
     test0->setSquare();
-    test0->setColor(new QColor(Qt::yellow));
+    //test0->setColor(new QColor(Qt::yellow));
     scene->addKnot(test0);
 
     setWindowTitle(tr("QTTree"));
